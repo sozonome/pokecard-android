@@ -10,9 +10,11 @@
         app:actionViewClass="android.widget.SearchView" />
     <item
         android:id="@+id/about_button"
+        android:icon="@drawable/ic_info"
         android:title="About" />
     <item
         android:id="@+id/logout_button"
-        android:title="Log Out" />
+        android:title="Log Out"
+        android:icon="@drawable/ic_exit_to_app"/>
 
 </menu>
