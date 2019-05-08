@@ -2,6 +2,7 @@ package umn.ac.id.projectuas_00000014472;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import umn.ac.id.projectuas_00000014472.adapter.PokeCardAdapter;
+import umn.ac.id.projectuas_00000014472.helper.LoginDatabaseHelper;
 import umn.ac.id.projectuas_00000014472.model.PokeCard;
 
 public class MainActivity extends AppCompatActivity {
@@ -145,6 +147,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.logout_button:
+                LoginDatabaseHelper loginDatabaseHelper = new LoginDatabaseHelper(this);
+                Cursor cursor = loginDatabaseHelper.getLoginSession();
+                loginDatabaseHelper.killLoginSession(
+                        cursor.getString(cursor.getColumnIndexOrThrow(LoginDatabaseHelper.TableColumns.user_username)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(LoginDatabaseHelper.TableColumns.user_password))
+                );
                 break;
         }
         return super.onOptionsItemSelected(item);
