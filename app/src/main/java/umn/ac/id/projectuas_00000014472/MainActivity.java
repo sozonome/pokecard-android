@@ -1,7 +1,9 @@
 package umn.ac.id.projectuas_00000014472;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -42,10 +44,27 @@ public class MainActivity extends AppCompatActivity {
 
     private String URL = "https://api.pokemontcg.io/v1/cards";
 
+    SharedPreferences login_pref;
+    private static final String PREFERENCES_FILENAME = "login";
+    private static final int PREFERENCES_MODE = Context.MODE_PRIVATE;
+    private static final String KEY_USER = "USERNAME";
+    private static final String KEY_PASS = "PASSWORD";
+    private static final String LOGIN_KEY = "LOGGEDIN";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        login_pref = getSharedPreferences(PREFERENCES_FILENAME, PREFERENCES_MODE);
+        Boolean loggedinstatus = login_pref.getBoolean(LOGIN_KEY, false);
+
+        if(!loggedinstatus){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
 
         recyclerView = findViewById(R.id.cards_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -147,12 +166,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.logout_button:
-                LoginDatabaseHelper loginDatabaseHelper = new LoginDatabaseHelper(this);
-                Cursor cursor = loginDatabaseHelper.getLoginSession();
-                loginDatabaseHelper.killLoginSession(
-                        cursor.getString(cursor.getColumnIndexOrThrow(LoginDatabaseHelper.TableColumns.user_username)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(LoginDatabaseHelper.TableColumns.user_password))
-                );
+                final SharedPreferences.Editor login_pref_edit = login_pref.edit();
+                login_pref_edit.putBoolean(LOGIN_KEY, false);
+                login_pref_edit.apply();
+
+                Toast.makeText(getApplicationContext(),"Logged Out!",Toast.LENGTH_LONG).show();
+                setResult(RESULT_OK);
+                finish();
+
+                startActivity(getIntent());
                 break;
         }
         return super.onOptionsItemSelected(item);

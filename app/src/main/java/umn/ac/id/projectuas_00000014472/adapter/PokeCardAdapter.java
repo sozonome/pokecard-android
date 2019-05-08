@@ -19,6 +19,7 @@ import umn.ac.id.projectuas_00000014472.CardDetailActivity;
 import umn.ac.id.projectuas_00000014472.R;
 import umn.ac.id.projectuas_00000014472.model.PokeCard;
 
+
 public class PokeCardAdapter extends RecyclerView.Adapter<PokeCardAdapter.ViewHolder> {
 
     public static final String KEY_NAME="name";
@@ -53,6 +54,7 @@ public class PokeCardAdapter extends RecyclerView.Adapter<PokeCardAdapter.ViewHo
 
         Picasso.with(context)
                 .load(pokeCard.getImageUrl())
+                .placeholder(R.drawable.loading)
                 .into(holder.card_image);
 
         holder.linear_card.setOnClickListener(new View.OnClickListener() {
