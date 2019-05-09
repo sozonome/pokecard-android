@@ -54,7 +54,8 @@ public class PokeCardAdapter extends RecyclerView.Adapter<PokeCardAdapter.ViewHo
 
         Picasso.with(context)
                 .load(pokeCard.getImageUrl())
-                .placeholder(R.drawable.loading)
+                .fit()
+                .placeholder(R.drawable.loading_animation)
                 .into(holder.card_image);
 
         holder.linear_card.setOnClickListener(new View.OnClickListener() {

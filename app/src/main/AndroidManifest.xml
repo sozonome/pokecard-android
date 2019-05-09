@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_pokecard_circle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashTheme">

@@ -68,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.cards_recycler_view);
         recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this ));
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
 
         pokeCards = new ArrayList<>();
 

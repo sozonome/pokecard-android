@@ -44,6 +44,7 @@ public class CardDetailActivity extends AppCompatActivity {
         card_name.setText(name);
         Picasso.with(this)
                 .load(image)
+                .placeholder(R.drawable.loading_animation)
                 .into(card_image);
 
         card_supertype.setText(supertype);
