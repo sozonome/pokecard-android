@@ -1,9 +1,8 @@
 package umn.ac.id.projectuas_00000014472;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
     private int time = 4000;

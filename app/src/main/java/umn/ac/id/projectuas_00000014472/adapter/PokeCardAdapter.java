@@ -72,7 +72,16 @@ public class PokeCardAdapter extends RecyclerView.Adapter<PokeCardAdapter.ViewHo
                 intent.putExtra(KEY_SETCODE, pokeCard1.getSetCode());
                 v.getContext().startActivity(intent);
             }
+
         });
+
+        holder.linear_card.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+            }
+        });
+
     }
 
     @Override
