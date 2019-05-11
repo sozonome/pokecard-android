@@ -1,10 +1,12 @@
 package id.ac.umn.AgustinusNathaniel;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private List<PokeCard> pokeCards;
 
     private String URL = "https://api.pokemontcg.io/v1/cards";
+    //secara default akan load 100 data.
 
     SharedPreferences login_pref;
     private static final String PREFERENCES_FILENAME = "login";
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Activity Track", "Masuk MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -63,9 +67,16 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.cards_recycler_view);
         recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this ));
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
+        int spanNumber;
+        int orientation = this.getResources().getConfiguration().orientation;
+        if(orientation==Configuration.ORIENTATION_PORTRAIT){
+            spanNumber = 2;
+        }else{
+            spanNumber = 3;
+        }
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, spanNumber));
 
         pokeCards = new ArrayList<>();
 
@@ -73,15 +84,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void loadCard(){
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Capturing some\nPokemon for you . . . \n\nPlease be patient...\nit may take a while");
-        progressDialog.show();
+        final Dialog dialog = new AlertDialog.Builder(this).setView(R.layout.progressbar).create();
+        dialog.show();
 
         StringRequest request = new StringRequest(Request.Method.GET,
                 URL,  new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                progressDialog.dismiss();
+                dialog.dismiss();
                 try{
                     JSONObject cards = new JSONObject(response);
                     JSONArray array = cards.getJSONArray("cards");
