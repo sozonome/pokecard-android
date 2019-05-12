@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_pokecard_circle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashTheme">
@@ -24,6 +24,15 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CardDetailActivity" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".SearchResultActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"
+                android:value=".SearchResultActivity"/>
+        </activity>
     </application>
+
 </manifest>
