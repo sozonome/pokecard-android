@@ -11,11 +11,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.SearchView;
+import android.widget.ArrayAdapter;
+import android.support.v7.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -51,13 +53,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_PASS = "PASSWORD";
     private static final String LOGIN_KEY = "LOGGEDIN";
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Activity Track", "Masuk MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.appbar);
+        setSupportActionBar(toolbar);
 
         login_pref = getSharedPreferences(PREFERENCES_FILENAME, PREFERENCES_MODE);
         Boolean loggedinstatus = login_pref.getBoolean(LOGIN_KEY, false);
@@ -83,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         pokeCards = new ArrayList<>();
 
         loadCard();
+
+
     }
 
     void loadCard(){
@@ -165,10 +170,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_options, menu);
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 
@@ -190,8 +191,6 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(getIntent());
                 break;
-            case R.id.app_bar_search:
-
 
         }
         return super.onOptionsItemSelected(item);

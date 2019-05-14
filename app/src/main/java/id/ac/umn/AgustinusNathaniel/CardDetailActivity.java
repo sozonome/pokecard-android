@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,6 +45,9 @@ public class CardDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_card_detail);
 
         //Layout
+        Toolbar toolbar = findViewById(R.id.appbar);
+        setSupportActionBar(toolbar);
+
         card_name = findViewById(R.id.card_name);
         card_image = findViewById(R.id.card_image);
 
